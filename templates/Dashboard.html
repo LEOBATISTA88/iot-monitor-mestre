@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="10">
+    <title>Painel de Monitoramento de Ativos - IoT</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f6f9; margin: 20px; }
+        h1 { color: #333; }
+        .grid { display: flex; flex-wrap: wrap; gap: 20px; }
+        .card { background: white; border-radius: 8px; padding: 15px; width: 280px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .status-online { color: green; font-weight: bold; }
+        .status-offline { color: red; font-weight: bold; }
+        .metric { margin: 8px 0; }
+        .progress-bar { background: #e0e0e0; border-radius: 4px; height: 12px; overflow: hidden; }
+        .fill { height: 100%; background: #007bff; }
+    </style>
+</head>
+<body>
+    <h1>Sistema Centralizado de Monitoramento de Ativos</h1>
+    <p>Atualização automática a cada 10 segundos.</p>
+    
+    <div class="grid">
+        {% for item in agents_data %}
+        <div class="card">
+            <h3>{{ item.agent.hostname }}</h3>
+            <p><strong>ID / MAC:</strong> {{ item.agent.id }}</p>
+            <p><strong>Último Contato:</strong> {{ item.agent.last_seen.strftime('%d/%m/%Y %H:%M:%S') }}</p>
+            
+            {% if item.telemetry %}
+                <div class="metric">
+                    <span>CPU: {{ item.telemetry.cpu_percent }}%</span>
+                    <div class="progress-bar"><div class="fill" style="width: {{ item.telemetry.cpu_percent }}%;"></div></div>
+                </div>
+                <div class="metric">
+                    <span>RAM: {{ item.telemetry.ram_percent }}%</span>
+                    <div class="progress-bar"><div class="fill" style="width: {{ item.telemetry.ram_percent }}%;"></div></div>
+                </div>
+                <div class="metric">
+                    <span>Disco: {{ item.telemetry.disk_percent }}%</span>
+                    <div class="progress-bar"><div class="fill" style="width: {{ item.telemetry.disk_percent }}%;"></div></div>
+                </div>
+            {% else %}
+                <p>Nenhuma leitura registrada.</p>
+            {% endif %}
+        </div>
+        {% else %}
+        <p>Nenhum agente conectado até o momento.</p>
+        {% endfor %}
+    </div>
+</body>
+</html>
