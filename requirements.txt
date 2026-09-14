@@ -4,3 +4,27 @@ psycopg2-binary==2.9.9
 gunicorn==21.2.0
 requests==2.31.0
 psutil==5.9.8
+Seu projeto está conectado
+LEOBATISTA88/iot-monitor-mestre
+
+Criamos uma chave de API do Neon para o seu projeto e adicionamos os seguintes segredos e variáveis ao seu repositório do GitHub:
+NEON_API_KEY
+NEON_PROJECT_ID
+
+Configurando seu fluxo de trabalho (workflow) do GitHub Actions
+Adicione o fluxo de trabalho do GitHub Actions ao seu repositório:
+
+No seu repositório do GitHub, crie um arquivo .yml no diretório .github/workflows; por exemplo: neon_workflow.yml.
+
+Copie o conteúdo YAML a seguir para o seu arquivo neon_workflow.yml.
+
+Faça o commit das suas alterações.
+
+O fluxo de trabalho do GitHub Actions cria um novo ramo (branch) de banco de dados a cada solicitação de publicação (pull request), o qual você pode visualizar na página Branches no Console do Neon. Quando você fecha a solicitação de publicação, o ramo é excluído.
+
+Mostrar mais
+
+Copiar trecho de código
+
+Próximos passos
+Para saber mais sobre como integrar e construir fluxos de trabalho com o GitHub Actions, consulte o guia de integração do GitHub com o Neon.
